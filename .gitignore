@@ -1,0 +1,21 @@
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+
+# Logs #
+######################
+*.log
+
+# SENSITVE DATA #
+.gitconfig
+.env
+
+
+# BUILD #
+./gin-boilerplate
+.git
+.github
+.idea
+.travis.yml
