@@ -1,5 +1,26 @@
+
+###
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{
+  "content": "23232"
+}
+
+###
+
+
+###
 # Test your FastAPI endpoints
 
+###
+POST http://127.0.0.1:8000/api/qrcode/get
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+
+content=23232
+
+###
 GET http://127.0.0.1:8000/
 Accept: application/json
 
@@ -8,4 +29,3 @@ Accept: application/json
 GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
-###
