@@ -72,6 +72,34 @@ class Instance:
             page = await self.browser.new_page()
             await page.goto("http://localhost:3000")
             await page.wait_for_timeout(100)
+            # pixel style = Heart
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(5) > fieldset > label.border-l.border-base.ml--1px.bg-active > input[type=radio]") \
+                .click()
+            # Maker pixel
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(7) > fieldset:nth-child(2) > label:nth-child(2) > input[type=radio]") \
+                .click()
+            # Maker shape
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(8) > fieldset > label:nth-child(6) > input[type=radio]") \
+                .click()
+            # Maker inner
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(9) > fieldset:nth-child(2) > label:nth-child(3) > input[type=radio]") \
+                .click()
+
+            # safe space = Extreme
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(14) > fieldset > label:nth-child(4) > input[type=radio]") \
+                .click()
+            # clear seed input
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(16) > input[type=number]").clear()
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(17) > button:nth-child(4)") \
+                .click()
+
             self.page = page
         except BaseException as e:
             logger.info(e)

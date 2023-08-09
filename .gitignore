@@ -19,3 +19,6 @@
 .github
 .idea
 .travis.yml
+output/*
+tests/output/*
+src/output/*
