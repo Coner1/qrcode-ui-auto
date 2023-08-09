@@ -28,5 +28,6 @@ async def get_qrcode(content: str):
     # i = core_async.get_instance(False)
     base64_str = await ins.generate(content)
     base64_str = core_async.remove_base64_img_prefix(base64_str)
-    await ins.close()
+    # core_async.save_image(content + ".png", base64.b64decode(base64_str))
+    # await ins.close()
     return base64_str

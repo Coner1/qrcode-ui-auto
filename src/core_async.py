@@ -1,3 +1,4 @@
+import asyncio
 import os
 
 from loguru import logger
@@ -33,6 +34,11 @@ def save_image(name, b):
         logger.info(f"image saved,path={image_full_path}")
 
 
+# class Task:
+#     task_id: str
+#     content: str
+
+
 class Instance:
     def __init__(self, headless=True):
         self.isStarted = False
@@ -42,6 +48,8 @@ class Instance:
         self.context = None
         self.page = None
         self.page_limit = 1
+        # self.task_queue = queue.Queue(maxsize=1000)
+        self.lock = asyncio.Lock()
 
     async def start(self) -> None:
         try:
@@ -62,29 +70,35 @@ class Instance:
             return
         try:
             page = await self.browser.new_page()
-            await page.goto("https://qrcode.antfu.me/#generator")
+            await page.goto("http://localhost:3000")
             await page.wait_for_timeout(100)
             self.page = page
         except BaseException as e:
             logger.info(e)
 
-    async def generate(self, text: str) -> str:
-        page = self.page
-        if page is None:
-            return ""
-        logger.info(await page.locator("#__nuxt textarea").count())
-        await page.locator("#__nuxt textarea").type(text=text)
-        await page.wait_for_timeout(1000)
-        # screenshot_bytes = page.screenshot(path="output/example.png")
-        # logger.info(base64.b64encode(screenshot_bytes).decode())
-        # logger.info(base64.b64encode(screenshot_bytes))
-        base64str = await page.locator("#__nuxt canvas").evaluate("canvas => canvas.toDataURL()")
-        # logger.info(page.locator("#__nuxt canvas").count())
-        # logger.info(page.locator("#__nuxt canvas").evaluate("canvas => canvas.toDataURL()"))
-        # page.locator("#__nuxt canvas").screenshot(path="output/example1.png")
-        # logger.info(page.locator("#__nuxt canvas")
-        # logger.debug('this is a debug message')
-        return base64str
+    # async def submit_task(self, task: Task):
+    #     self.task_queue.put(task)
+
+    async def generate(self, content: str) -> str:
+        async with self.lock:
+            page = self.page
+            if page is None:
+                return ""
+
+            textarea = page.locator("#__nuxt textarea")
+            await textarea.type(text=content)
+            await page.wait_for_timeout(500)
+            # screenshot_bytes = page.screenshot(path="output/example.png")
+            # logger.info(base64.b64encode(screenshot_bytes).decode())
+            # logger.info(base64.b64encode(screenshot_bytes))
+            base64str = await page.locator("#__nuxt canvas").evaluate("canvas => canvas.toDataURL()")
+            # logger.info(page.locator("#__nuxt canvas").count())
+            # logger.info(page.locator("#__nuxt canvas").evaluate("canvas => canvas.toDataURL()"))
+            # page.locator("#__nuxt canvas").screenshot(path="output/example1.png")
+            # logger.info(page.locator("#__nuxt canvas")
+            # logger.debug('this is a debug message')
+            await textarea.clear()
+            return base64str
 
     async def close(self):
         try:
