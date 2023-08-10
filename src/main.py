@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI
 from loguru import logger
 
@@ -30,4 +31,12 @@ async def get_qrcode(content: str):
     base64_str = core_async.remove_base64_img_prefix(base64_str)
     # core_async.save_image(urllib.parse.quote_plus(content + ".png"), base64.b64decode(base64_str))
     # await ins.close()s
-    return base64_str
+    return {
+        "code": "200",
+        "message": "ok",
+        "data": base64_str
+    }
+
+
+if __name__ == '__main__':
+    uvicorn.run(app="src.main:app", host="127.0.0.1", port=8010, reload=True)

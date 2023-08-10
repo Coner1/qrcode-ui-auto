@@ -72,9 +72,24 @@ class Instance:
             page = await self.browser.new_page()
             await page.goto("http://localhost:3000")
             await page.wait_for_timeout(100)
+            # Error Correction = L
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > fieldset > label:nth-child(1) > input[type=radio]") \
+                .click()
+
+            # Boost ECC = Checked
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > label > div > input[type=checkbox]") \
+                .click()
+
+            # Mask Pattern = 7
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(2) > fieldset > label:nth-child(9) > input[type=radio]") \
+                .click()
+
             # pixel style = Heart
             await page.locator(
-                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(5) > fieldset > label.border-l.border-base.ml--1px.bg-active > input[type=radio]") \
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(5) > fieldset > label:nth-child(2) > input[type=radio]") \
                 .click()
             # Maker pixel
             await page.locator(
@@ -89,15 +104,26 @@ class Instance:
                 "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(9) > fieldset:nth-child(2) > label:nth-child(3) > input[type=radio]") \
                 .click()
 
+            # Margin = 6
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(11) > div:nth-child(3) > input[type=number]") \
+                .fill("7")
             # safe space = Extreme
             await page.locator(
-                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(14) > fieldset > label:nth-child(4) > input[type=radio]") \
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(13) > fieldset > label:nth-child(4) > input[type=radio]") \
                 .click()
+            # Render type = all
+            await page.locator(
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(14) > fieldset > label:nth-child(1) > input[type=radio]") \
+                .click()
+
             # clear seed input
             await page.locator(
-                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(16) > input[type=number]").clear()
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > label:nth-child(15) > input[type=number]") \
+                .fill("")
+            # background color = #888888
             await page.locator(
-                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(17) > button:nth-child(4)") \
+                "#__nuxt > div > div > div:nth-child(3) > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(16) > button:nth-child(4)") \
                 .click()
 
             self.page = page
@@ -114,7 +140,7 @@ class Instance:
                 return ""
 
             textarea = page.locator("#__nuxt textarea")
-            await textarea.type(text=content)
+            await textarea.fill(content)
             await page.wait_for_timeout(500)
             # screenshot_bytes = page.screenshot(path="output/example.png")
             # logger.info(base64.b64encode(screenshot_bytes).decode())
