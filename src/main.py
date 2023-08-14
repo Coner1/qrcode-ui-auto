@@ -22,7 +22,7 @@ def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
-@app.post("/api/qrcode/get")
+@app.get("/api/qrcode/get")
 async def get_qrcode(content: str):
     logger.info(content)
     await ins.start()
