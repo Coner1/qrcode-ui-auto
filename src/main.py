@@ -9,7 +9,7 @@ app = FastAPI()
 # ins.start()
 
 
-ins = core_async.Instance(False)
+ins = core_async.Instance(True)
 
 
 @app.get("/")
