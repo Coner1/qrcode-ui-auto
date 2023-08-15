@@ -39,4 +39,4 @@ async def get_qrcode(content: str):
 
 
 if __name__ == '__main__':
-    uvicorn.run(app="src.main:app", host=":", port=8010, reload=True)
+    uvicorn.run(app="src.main:app", host="0.0.0.0", port=8010, reload=True)
